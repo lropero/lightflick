@@ -4,7 +4,7 @@ import { ThemeContext } from 'styled-components'
 
 import { Footer, Nav } from 'lightflick/components'
 
-const Layout = ({ children, search, searching }) => {
+const Layout = ({ children }) => {
   const theme = useContext(ThemeContext)
 
   return (
@@ -18,7 +18,7 @@ const Layout = ({ children, search, searching }) => {
           zIndex: 1
         }}
       >
-        <Nav search={search} searching={searching} />
+        <Nav />
       </L.Header>
       <L.Content style={{ marginTop: 64 }}>{children}</L.Content>
       <L.Footer

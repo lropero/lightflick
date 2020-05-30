@@ -1,26 +1,14 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
+import React, { useEffect, useState } from 'react'
 import { debounce, pick } from 'lodash'
-import { LoadingOutlined } from '@ant-design/icons'
-import { Spin } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
-import { Details, Layout, List } from 'lightflick/components'
+import { Details, Layout, List, Spinner } from 'lightflick/components'
 import { filterMovies } from 'lightflick/helpers'
+import { setSearching } from 'lightflick/store/search'
 import { updateCache } from 'lightflick/store/cache'
 import { updateMovies } from 'lightflick/store/movies'
 import { useApi } from 'lightflick/hooks'
-
-const indicator = <LoadingOutlined style={{ fontSize: 50 }} spin />
-
-const Wrapper = styled.div`
-  align-items: center;
-  background-color: white;
-  display: flex;
-  justify-content: center;
-  padding: 30px;
-`
 
 const Movies = () => {
   const api = useApi()
@@ -28,19 +16,19 @@ const Movies = () => {
   const dispatch = useDispatch()
   const moviesStore = useSelector(state => state.movies)
   const { id } = useParams()
+  const { searching, stars, term } = useSelector(state => state.search)
 
   const [movies, setMovies] = useState()
-  const [searching, setSearching] = useState(false)
 
   const fetch = debounce(async ({ term, stars }) => {
     const movies = term.length ? await api.search(term) : await api.popular()
     dispatch(updateMovies(movies))
     dispatch(updateCache({ term, movieIds: movies.map(movie => movie.id) }))
     setMovies(filterMovies({ movies, stars }))
-    setSearching(false)
+    dispatch(setSearching(false))
   }, 300)
 
-  const search = ({ stars, term }) => {
+  useEffect(() => {
     if (cacheStore[term]) {
       setMovies(
         filterMovies({
@@ -48,20 +36,18 @@ const Movies = () => {
           stars
         })
       )
-    } else {
-      setSearching(term.length >= 3)
+    } else if (term.length === 0 || term.length >= 3) {
+      dispatch(setSearching(true))
       fetch({ term, stars })
     }
-  }
+  }, [stars, term])
 
   return (
-    <Layout search={search} searching={searching}>
+    <Layout>
       {id ? (
         <Details id={id} />
       ) : !Array.isArray(movies) || searching ? (
-        <Wrapper>
-          <Spin indicator={indicator} />
-        </Wrapper>
+        <Spinner />
       ) : (
         <List movies={movies} />
       )}

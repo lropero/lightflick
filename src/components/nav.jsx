@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { Input, Rate, Space } from 'antd'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
 import Logo from 'lightflick/assets/logo.svg' // created with https://app.brandmark.io/v2/
+import { setStars, setTerm } from 'lightflick/store/search'
 
 const Search = styled.div`
   align-items: center;
@@ -16,37 +19,38 @@ const Wrapper = styled.div`
   justify-content: space-between;
 `
 
-const Nav = ({ search, searching }) => {
-  const [stars, setStars] = useState(0)
-  const [term, setTerm] = useState('')
-
-  useEffect(() => {
-    search({ stars, term })
-  }, [stars, term])
+const Nav = () => {
+  const dispatch = useDispatch()
+  const { id } = useParams()
+  const { searching, stars, term } = useSelector(state => state.search)
 
   const handleRateChange = value => {
-    setStars(value)
+    dispatch(setStars(value))
   }
 
-  const handleSearchChange = value => {
-    setTerm(value)
+  const handleSearchChange = event => {
+    const term = event.currentTarget.value
+    dispatch(setTerm(term))
   }
 
   return (
     <Wrapper>
       <Logo style={{ left: -72, position: 'relative', top: -88 }} />
-      <Search>
-        <Space align='center' size='middle'>
-          <Rate allowClear onChange={handleRateChange} />
-          <Input.Search
-            allowClear
-            loading={searching}
-            onChange={event => handleSearchChange(event.currentTarget.value)}
-            placeholder='Search'
-            style={{ width: 300 }}
-          />
-        </Space>
-      </Search>
+      {!id && (
+        <Search>
+          <Space align='center' size='middle'>
+            <Rate allowClear defaultValue={stars} onChange={handleRateChange} />
+            <Input.Search
+              allowClear
+              loading={searching}
+              onChange={handleSearchChange}
+              placeholder='Search'
+              style={{ width: 300 }}
+              value={term}
+            />
+          </Space>
+        </Search>
+      )}
     </Wrapper>
   )
 }

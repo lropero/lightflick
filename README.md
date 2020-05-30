@@ -13,6 +13,10 @@ Yet another movie explorer
 $ yarn
 ```
 
+### Configuration
+
+- Replace `key` value in `config.js` with a valid TMDb api key
+
 ### Usage
 
 ```sh
