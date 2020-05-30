@@ -1,3 +1,4 @@
+// TODO: write test
 const filterMovies = ({ movies, stars }) =>
   movies
     .filter(
