@@ -4,6 +4,18 @@ import config from 'lightflick/../config'
 
 const useApi = () => {
   return {
+    discover: async () => {
+      let movies = []
+      try {
+        const response = await axios.get(
+          `${config.api}/discover/movie?api_key=${config.key}`
+        )
+        movies = (response.status === 200 && response.data.results) || movies
+      } catch (error) {
+        console.error(error.toString())
+      }
+      return movies
+    },
     get: async id => {
       try {
         const response = await axios.get(
@@ -13,18 +25,6 @@ const useApi = () => {
       } catch (error) {
         console.error(error.toString())
       }
-    },
-    popular: async () => {
-      let movies = []
-      try {
-        const response = await axios.get(
-          `${config.api}/movie/popular?api_key=${config.key}`
-        )
-        movies = (response.status === 200 && response.data.results) || movies
-      } catch (error) {
-        console.error(error.toString())
-      }
-      return movies
     },
     search: async term => {
       let movies = []

@@ -22,7 +22,7 @@ const Movies = () => {
   const [movies, setMovies] = useState()
 
   const fetch = debounce(async ({ term, stars }) => {
-    const movies = term.length ? await api.search(term) : await api.popular()
+    const movies = term.length ? await api.search(term) : await api.discover()
     dispatch(updateMovies(movies))
     dispatch(updateCache({ term, movieIds: movies.map(movie => movie.id) }))
     setMovies(filterMovies({ movies, stars }))
