@@ -2,7 +2,7 @@ import en from 'javascript-time-ago/locale/en'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import TimeAgo from 'javascript-time-ago'
-import { Rate, Space, Typography } from 'antd'
+import { Descriptions, Rate, Space, Typography } from 'antd'
 import { useHistory } from 'react-router-dom'
 
 import { Spinner } from 'lightflick/components'
@@ -40,6 +40,7 @@ const Details = ({ id }) => {
   const history = useHistory()
 
   const [movie, setMovie] = useState()
+  const [profit, setProfit] = useState()
 
   useEffect(() => {
     const fetch = async () => {
@@ -52,6 +53,12 @@ const Details = ({ id }) => {
     }
     fetch()
   }, [])
+
+  useEffect(() => {
+    if (movie && movie.budget > 0 && movie.revenue > 0) {
+      setProfit(movie.revenue - movie.budget)
+    }
+  }, [movie])
 
   return movie ? (
     <Movie>
@@ -91,7 +98,28 @@ const Details = ({ id }) => {
             <Typography.Text>{movie.overview}</Typography.Text>
           </Overview>
         )}
-        <p style={{ margin: 0 }}>
+        {profit && (
+          <Descriptions bordered size='small'>
+            <Descriptions.Item label='Budget'>{`$${new Intl.NumberFormat().format(
+              movie.budget
+            )}`}</Descriptions.Item>
+            <Descriptions.Item label='Revenue'>{`$${new Intl.NumberFormat().format(
+              movie.revenue
+            )}`}</Descriptions.Item>
+            <Descriptions.Item label='Profit'>
+              {profit > 0 ? (
+                <Typography.Text>{`$${new Intl.NumberFormat().format(
+                  profit
+                )}`}</Typography.Text>
+              ) : (
+                <Typography.Text type='danger'>{`$${new Intl.NumberFormat().format(
+                  profit
+                )}`}</Typography.Text>
+              )}
+            </Descriptions.Item>
+          </Descriptions>
+        )}
+        <p style={{ margin: '10px 0 0 0' }}>
           Released {timeAgo.format(new Date(movie.release_date))}
         </p>
         <Space>
