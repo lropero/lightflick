@@ -2,6 +2,10 @@
 
 Yet another movie explorer
 
+### Live version
+
+See it working here: [https://lightflick.netlify.app/](https://lightflick.netlify.app/)
+
 ### Requires
 
 - Node v14.3.0

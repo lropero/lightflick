@@ -5,7 +5,7 @@ import movies from './movies'
 import search from './search'
 
 const store = configureStore({
-  devTools: !process.env.NODE_ENV || process.env.NODE_ENV === 'development',
+  devTools: true, // !process.env.NODE_ENV || process.env.NODE_ENV === 'development',
   reducer: { cache, movies, search }
 })
 
