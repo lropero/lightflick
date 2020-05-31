@@ -27,7 +27,7 @@ module.exports = merge(common, {
   plugins: [
     new HtmlWebpackPlugin({
       templateParameters: {
-        description: 'You had to have the big salad.',
+        description: 'Yet another movie explorer.',
         title: 'Lightflick'
       }
     })

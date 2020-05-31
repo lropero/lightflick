@@ -1,7 +1,7 @@
 {
   "name": "lightflick",
   "version": "1.0.0",
-  "description": "Yet another movie explorer",
+  "description": "Yet another movie explorer.",
   "scripts": {
     "build": "rimraf dist && webpack --config webpack.prod.js",
     "lint": "prettier-standard --lint",

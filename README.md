@@ -1,6 +1,6 @@
 # Lightflick 🎞
 
-Yet another movie explorer
+You had to have the big salad 🥗
 
 ### Live version
 
