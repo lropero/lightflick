@@ -11,12 +11,13 @@ import { updateMovies } from 'lightflick/store/movies'
 import { useApi } from 'lightflick/hooks'
 
 const Movies = () => {
-  const api = useApi()
   const cacheStore = useSelector(state => state.cache)
-  const dispatch = useDispatch()
   const moviesStore = useSelector(state => state.movies)
-  const { id } = useParams()
   const { searching, stars, term } = useSelector(state => state.search)
+
+  const api = useApi()
+  const dispatch = useDispatch()
+  const { id } = useParams()
 
   const [movies, setMovies] = useState()
 

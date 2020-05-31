@@ -2,10 +2,10 @@ import React from 'react'
 import styled from 'styled-components'
 import { Input, Rate, Space } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 
 import Logo from 'lightflick/assets/logo.svg' // created with https://app.brandmark.io/v2/
-import { setStars, setTerm } from 'lightflick/store/search'
+import { resetSearch, setStars, setTerm } from 'lightflick/store/search'
 
 const Search = styled.div`
   align-items: center;
@@ -20,9 +20,16 @@ const Wrapper = styled.div`
 `
 
 const Nav = () => {
-  const dispatch = useDispatch()
-  const { id } = useParams()
   const { searching, stars, term } = useSelector(state => state.search)
+
+  const { id } = useParams()
+  const dispatch = useDispatch()
+  const history = useHistory()
+
+  const handleLogoClick = () => {
+    dispatch(resetSearch())
+    history.push('/')
+  }
 
   const handleRateChange = value => {
     dispatch(setStars(value))
@@ -35,7 +42,10 @@ const Nav = () => {
 
   return (
     <Wrapper>
-      <Logo style={{ left: -72, position: 'relative', top: -88 }} />
+      <Logo
+        onClick={handleLogoClick}
+        style={{ cursor: 'pointer', left: -72, position: 'relative', top: -88 }}
+      />
       {!id && (
         <Search>
           <Space align='center' size='middle'>
