@@ -8,17 +8,16 @@ See it working here → [https://lightflick.netlify.app/](https://lightflick.net
 
 ### Requires
 
-- Node v14.4.0
-- Yarn v1.22.4
+- Node v14.5.0
 
 ### Installation
 
 ```sh
-$ yarn
+$ npm ci
 ```
 
 ### Usage
 
 ```sh
-$ yarn run start
+$ npm run start
 ```
