@@ -43,17 +43,7 @@ const Movies = () => {
     }
   }, [stars, term])
 
-  return (
-    <Layout>
-      {id ? (
-        <Details id={id} />
-      ) : !Array.isArray(movies) || searching ? (
-        <Spinner />
-      ) : (
-        <List movies={movies} />
-      )}
-    </Layout>
-  )
+  return <Layout>{id ? <Details id={id} /> : !Array.isArray(movies) || searching ? <Spinner /> : <List movies={movies} />}</Layout>
 }
 
 export default Movies

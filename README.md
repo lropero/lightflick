@@ -8,7 +8,7 @@ See it working here → [https://lightflick.netlify.app/](https://lightflick.net
 
 ### Requires
 
-- Node v14.5.0
+- Node v14.15.3
 
 ### Installation
 

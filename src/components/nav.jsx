@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Input, Rate, Space } from 'antd'
+import { Input, Rate } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom'
 
@@ -11,6 +11,10 @@ const Search = styled.div`
   align-items: center;
   align-self: center;
   display: flex;
+
+  > ul {
+    margin-right: 16px;
+  }
 `
 
 const Wrapper = styled.div`
@@ -42,23 +46,11 @@ const Nav = () => {
 
   return (
     <Wrapper>
-      <Logo
-        onClick={handleLogoClick}
-        style={{ cursor: 'pointer', left: -72, position: 'relative', top: -88 }}
-      />
+      <Logo onClick={handleLogoClick} style={{ cursor: 'pointer', left: -72, position: 'relative', top: -88 }} />
       {!id && (
         <Search>
-          <Space align='center' size='middle'>
-            <Rate allowClear defaultValue={stars} onChange={handleRateChange} />
-            <Input.Search
-              allowClear
-              loading={searching}
-              onChange={handleSearchChange}
-              placeholder='Search'
-              style={{ width: 300 }}
-              value={term}
-            />
-          </Space>
+          <Rate allowClear defaultValue={stars} onChange={handleRateChange} />
+          <Input.Search allowClear loading={searching} onChange={handleSearchChange} placeholder='Search' style={{ width: 300 }} value={term} />
         </Search>
       )}
     </Wrapper>

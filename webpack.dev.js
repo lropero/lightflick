@@ -12,7 +12,7 @@ module.exports = merge(common, {
     port: 3000,
     stats: 'errors-only'
   },
-  devtool: 'inline-source-map',
+  devtool: 'eval-source-map',
   mode: 'development',
   module: {
     rules: [
@@ -31,9 +31,10 @@ module.exports = merge(common, {
   plugins: [
     new HtmlWebpackPlugin({
       templateParameters: {
-        description: 'DEV#DESCRIPTION',
-        title: 'DEV#Lightflick'
+        description: process.env.HTML_DESCRIPTION,
+        title: `DEV#${process.env.HTML_TITLE}`
       }
     })
-  ]
+  ],
+  target: 'web'
 })

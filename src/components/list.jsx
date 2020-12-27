@@ -18,10 +18,7 @@ const columns = [
         <>
           {image && (
             <Poster>
-              <img
-                src={`http://image.tmdb.org/t/p/w185/${image}`}
-                style={{ width: 150 }}
-              />
+              <img src={`http://image.tmdb.org/t/p/w185/${image}`} style={{ width: 150 }} />
             </Poster>
           )}
           <p>{text}</p>

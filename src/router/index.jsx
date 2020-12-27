@@ -9,11 +9,7 @@ const Router = () => (
     <Switch>
       {routes.map((route, index) => (
         <Route exact key={index} path={route.path}>
-          {route.redirect ? (
-            <Redirect to={route.redirect} />
-          ) : (
-            <Route component={route.component} />
-          )}
+          {route.redirect ? <Redirect to={route.redirect} /> : <Route component={route.component} />}
         </Route>
       ))}
       <Route component={NotFound} />

@@ -28,11 +28,6 @@ const searchSlice = createSlice({
   }
 })
 
-export const {
-  resetSearch,
-  setSearching,
-  setStars,
-  setTerm
-} = searchSlice.actions
+export const { resetSearch, setSearching, setStars, setTerm } = searchSlice.actions
 
 export default searchSlice.reducer

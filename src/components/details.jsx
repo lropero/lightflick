@@ -65,27 +65,15 @@ const Details = ({ id }) => {
       <div>
         {(movie.poster_path || movie.backdrop_path) && (
           <Poster>
-            <img
-              src={`http://image.tmdb.org/t/p/w185/${movie.poster_path ||
-                movie.backdrop_path}`}
-              style={{ width: 300 }}
-            />
+            <img src={`http://image.tmdb.org/t/p/w185/${movie.poster_path || movie.backdrop_path}`} style={{ width: 300 }} />
           </Poster>
         )}
       </div>
       <Right>
         <Title>
           <Space align='center' size='middle'>
-            <Typography.Title style={{ margin: 0 }}>
-              {movie.title}
-            </Typography.Title>
-            {movie.vote_average && (
-              <Rate
-                allowHalf
-                defaultValue={Math.round(movie.vote_average) / 2}
-                disabled
-              />
-            )}
+            <Typography.Title style={{ margin: 0 }}>{movie.title}</Typography.Title>
+            {movie.vote_average && <Rate allowHalf defaultValue={Math.round(movie.vote_average) / 2} disabled />}
           </Space>
         </Title>
         {movie.tagline && (
@@ -100,35 +88,21 @@ const Details = ({ id }) => {
         )}
         {profit && (
           <Descriptions bordered size='small'>
-            <Descriptions.Item label='Budget'>{`$${new Intl.NumberFormat().format(
-              movie.budget
-            )}`}</Descriptions.Item>
-            <Descriptions.Item label='Revenue'>{`$${new Intl.NumberFormat().format(
-              movie.revenue
-            )}`}</Descriptions.Item>
+            <Descriptions.Item label='Budget'>{`$${new Intl.NumberFormat().format(movie.budget)}`}</Descriptions.Item>
+            <Descriptions.Item label='Revenue'>{`$${new Intl.NumberFormat().format(movie.revenue)}`}</Descriptions.Item>
             <Descriptions.Item label='Profit'>
               {profit > 0 ? (
-                <Typography.Text>{`$${new Intl.NumberFormat().format(
-                  profit
-                )}`}</Typography.Text>
+                <Typography.Text>{`$${new Intl.NumberFormat().format(profit)}`}</Typography.Text>
               ) : (
-                <Typography.Text type='danger'>{`$${new Intl.NumberFormat().format(
-                  profit
-                )}`}</Typography.Text>
+                <Typography.Text type='danger'>{`$${new Intl.NumberFormat().format(profit)}`}</Typography.Text>
               )}
             </Descriptions.Item>
           </Descriptions>
         )}
-        <p style={{ margin: '10px 0 0 0' }}>
-          Released {timeAgo.format(new Date(movie.release_date))}
-        </p>
-        <Space>
+        <p style={{ margin: '10px 0 0 0' }}>Released {timeAgo.format(new Date(movie.release_date))}</p>
+        <Space size='middle'>
           {movie.imdb_id && (
-            <a
-              href={`https://www.imdb.com/title/${movie.imdb_id}/`}
-              rel='noopener noreferrer'
-              target='_blank'
-            >
+            <a href={`https://www.imdb.com/title/${movie.imdb_id}/`} rel='noopener noreferrer' target='_blank'>
               See on IMDb
             </a>
           )}
